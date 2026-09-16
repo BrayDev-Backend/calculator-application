@@ -1,5 +1,5 @@
 # Stage 1: Build the React frontend
-FROM node:20-alpine AS frontend-builder
+FROM node:22-alpine AS frontend-builder
 WORKDIR /app
 COPY frontend/package.json frontend/yarn.lock* ./
 RUN yarn install --frozen-lockfile || yarn install
@@ -7,7 +7,7 @@ COPY frontend/ .
 RUN yarn build
 
 # Stage 2: Build the Go backend
-FROM golang:1.22-alpine AS backend-builder
+FROM golang:1.26-alpine AS backend-builder
 WORKDIR /app
 COPY backend/go.mod ./
 COPY backend/ .

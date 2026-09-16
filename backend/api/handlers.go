@@ -13,7 +13,7 @@ type CalculateRequest struct {
 }
 
 type CalculateResponse struct {
-	Result float64 `json:"result,omitempty"`
+	Result *float64 `json:"result,omitempty"`
 	Error  string  `json:"error,omitempty"`
 }
 
@@ -50,7 +50,7 @@ func CalculateHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(CalculateResponse{Result: result})
+	json.NewEncoder(w).Encode(CalculateResponse{Result: &result})
 }
 
 func writeError(w http.ResponseWriter, statusCode int, message string) {

@@ -3,7 +3,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 import App from './App'
 
 // Mock fetch globally
-global.fetch = vi.fn()
+globalThis.fetch = vi.fn()
 
 describe('Calculator App', () => {
   beforeEach(() => {
@@ -37,7 +37,7 @@ describe('Calculator App', () => {
 
   it('performs calculation via API on equals', async () => {
     // Mock the API response
-    ;(global.fetch as any).mockResolvedValueOnce({
+    ;(globalThis.fetch as any).mockResolvedValueOnce({
       ok: true,
       json: async () => ({ result: 15 })
     })
@@ -52,7 +52,7 @@ describe('Calculator App', () => {
 
     // Wait for the mock to be called
     await vi.waitFor(() => {
-      expect(global.fetch).toHaveBeenCalledWith('http://localhost:8080/api/calculate', expect.objectContaining({
+      expect(globalThis.fetch).toHaveBeenCalledWith('/api/calculate', expect.objectContaining({
         method: 'POST',
         body: JSON.stringify({ operation: 'add', a: 7, b: 8 })
       }))
@@ -67,7 +67,7 @@ describe('Calculator App', () => {
 
   it('displays error message from API', async () => {
     // Mock the API response
-    ;(global.fetch as any).mockResolvedValueOnce({
+    ;(globalThis.fetch as any).mockResolvedValueOnce({
       ok: false,
       json: async () => ({ error: 'division by zero' })
     })

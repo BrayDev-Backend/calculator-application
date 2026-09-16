@@ -100,28 +100,28 @@ function App() {
       
       <div className="keypad">
         <button className="clear" onClick={clear}>C</button>
-        <button className="operator" onClick={() => performOperation('sqrt')}>√</button>
         <button className={`operator ${operator === 'power' ? 'active' : ''}`} onClick={() => performOperation('power')}>^</button>
+        <button className="operator" onClick={() => performOperation('sqrt')}>√</button>
+        <button className={`operator ${operator === 'divide' ? 'active' : ''}`} onClick={() => performOperation('divide')}>/</button>
         
         <button onClick={() => inputDigit('7')}>7</button>
         <button onClick={() => inputDigit('8')}>8</button>
         <button onClick={() => inputDigit('9')}>9</button>
-        <button className={`operator ${operator === 'divide' ? 'active' : ''}`} onClick={() => performOperation('divide')}>/</button>
+        <button className={`operator ${operator === 'multiply' ? 'active' : ''}`} onClick={() => performOperation('multiply')}>*</button>
         
         <button onClick={() => inputDigit('4')}>4</button>
         <button onClick={() => inputDigit('5')}>5</button>
         <button onClick={() => inputDigit('6')}>6</button>
-        <button className={`operator ${operator === 'multiply' ? 'active' : ''}`} onClick={() => performOperation('multiply')}>*</button>
+        <button className={`operator ${operator === 'subtract' ? 'active' : ''}`} onClick={() => performOperation('subtract')}>-</button>
         
         <button onClick={() => inputDigit('1')}>1</button>
         <button onClick={() => inputDigit('2')}>2</button>
         <button onClick={() => inputDigit('3')}>3</button>
-        <button className={`operator ${operator === 'subtract' ? 'active' : ''}`} onClick={() => performOperation('subtract')}>-</button>
+        <button className={`operator ${operator === 'add' ? 'active' : ''}`} onClick={() => performOperation('add')}>+</button>
         
-        <button onClick={() => inputDigit('0')}>0</button>
+        <button className="zero" onClick={() => inputDigit('0')}>0</button>
         <button onClick={inputDot}>.</button>
         <button className="equals" onClick={() => performOperation('=')}>=</button>
-        <button className={`operator ${operator === 'add' ? 'active' : ''}`} onClick={() => performOperation('add')}>+</button>
       </div>
     </div>
   )

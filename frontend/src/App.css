@@ -69,7 +69,6 @@ button:active {
 .equals {
   background: #4caf50;
   color: white;
-  grid-column: span 2;
 }
 
 .equals:hover {
@@ -79,11 +78,14 @@ button:active {
 .clear {
   background: #f44336;
   color: white;
-  grid-column: span 2;
 }
 
 .clear:hover {
   background: #e53935;
+}
+
+.zero {
+  grid-column: span 2;
 }
 
 @media (max-width: 400px) {
