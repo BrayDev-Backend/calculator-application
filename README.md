@@ -53,12 +53,29 @@ For testing or integration purposes, you can also interact directly with the bac
 **Headers:** `Content-Type: application/json`
 
 ### Success Example (Multiplication)
-**Request:**
+
+#### Linux / macOS / bash
 ```bash
 curl -X POST http://localhost:8080/api/calculate \
   -H "Content-Type: application/json" \
   -d '{"operation": "multiply", "a": 5, "b": 4}'
 ```
+
+#### Windows PowerShell with curl.exe
+```powershell
+curl.exe -X POST http://localhost:8080/api/calculate `
+  -H "Content-Type: application/json" `
+  -d '{"operation":"multiply","a":5,"b":4}'
+```
+
+#### Windows PowerShell with Invoke-RestMethod
+```powershell
+Invoke-RestMethod -Method Post `
+  -Uri http://localhost:8080/api/calculate `
+  -Headers @{ "Content-Type" = "application/json" } `
+  -Body '{"operation":"multiply","a":5,"b":4}'
+```
+
 **Response (200 OK):**
 ```json
 {
@@ -67,12 +84,29 @@ curl -X POST http://localhost:8080/api/calculate \
 ```
 
 ### Error Example (Division by Zero)
-**Request:**
+
+#### Linux / macOS / bash
 ```bash
 curl -X POST http://localhost:8080/api/calculate \
   -H "Content-Type: application/json" \
   -d '{"operation": "divide", "a": 10, "b": 0}'
 ```
+
+#### Windows PowerShell with curl.exe
+```powershell
+curl.exe -X POST http://localhost:8080/api/calculate `
+  -H "Content-Type: application/json" `
+  -d '{"operation":"divide","a":10,"b":0}'
+```
+
+#### Windows PowerShell with Invoke-RestMethod
+```powershell
+Invoke-RestMethod -Method Post `
+  -Uri http://localhost:8080/api/calculate `
+  -Headers @{ "Content-Type" = "application/json" } `
+  -Body '{"operation":"divide","a":10,"b":0}'
+```
+
 **Response (400 Bad Request):**
 ```json
 {
@@ -85,3 +119,93 @@ curl -X POST http://localhost:8080/api/calculate \
 ## 🧪 Testing
 
 The codebase includes comprehensive unit tests for both the Go backend (`testing` package) and the React frontend (Vitest + React Testing Library). These ensure mathematical integrity and component reliability at the source level before containerization.
+
+### Run the backend Go tests
+
+#### Linux / macOS / Git Bash
+```bash
+cd backend
+go test ./...
+```
+
+#### Windows PowerShell / Command Prompt
+```powershell
+cd backend
+go test ./...
+```
+
+#### Alternative Go test form
+```bash
+go test ./backend/...
+```
+
+### Run the frontend Vitest tests
+
+#### Linux / macOS
+```bash
+cd frontend
+npm install
+npm test -- --run
+```
+
+#### Windows PowerShell
+```powershell
+cd frontend
+npm install
+npm test -- --run
+```
+
+#### With pnpm
+```bash
+cd frontend
+pnpm install
+pnpm test -- --run
+```
+
+#### Direct Vitest invocation
+```bash
+cd frontend
+npx vitest run
+```
+
+### Test the API directly
+
+> On Windows PowerShell, `curl` is often an alias for `Invoke-WebRequest`, so use `curl.exe` or `Invoke-RestMethod` to avoid the `-X/-H/-d` argument issue.
+
+#### Linux / macOS (bash)
+```bash
+curl -X POST http://localhost:8080/api/calculate \
+  -H "Content-Type: application/json" \
+  -d '{"operation": "multiply", "a": 5, "b": 4}'
+```
+
+#### Windows PowerShell using curl.exe
+```powershell
+curl.exe -X POST http://localhost:8080/api/calculate `
+  -H "Content-Type: application/json" `
+  -d '{"operation":"multiply","a":5,"b":4}'
+```
+
+#### Windows PowerShell using Invoke-RestMethod
+```powershell
+Invoke-RestMethod -Method Post `
+  -Uri http://localhost:8080/api/calculate `
+  -Headers @{ "Content-Type" = "application/json" } `
+  -Body '{"operation":"multiply","a":5,"b":4}'
+```
+
+#### Windows Command Prompt
+```cmd
+curl -X POST http://localhost:8080/api/calculate ^
+  -H "Content-Type: application/json" ^
+  -d "{\"operation\": \"multiply\", \"a\": 5, \"b\": 4}"
+```
+
+### Run everything in Docker
+
+```bash
+docker build -t sezzle-calculator .
+docker run -p 8080:8080 sezzle-calculator
+```
+
+Then open http://localhost:8080 in a browser or send requests using any of the API commands above.
